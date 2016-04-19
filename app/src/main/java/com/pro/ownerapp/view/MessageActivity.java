@@ -121,7 +121,7 @@ public class MessageActivity extends AppCompatActivity {
             }
             else if (s.equals("EXCEPTION"))
             {
-                Toast.makeText(getApplicationContext(), "Some internal error occurred.\nPlease restart the application.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Please check internet connection.", Toast.LENGTH_LONG).show();
             }
             else
             {
