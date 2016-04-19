@@ -24,9 +24,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MessageActivity extends AppCompatActivity {
+
     private static final String TAG = "LoginActivity";
     private EditText txtMessage;
     private Button btnSend;
+    private String msgTitle = "Notification & Offers";
+    private String msgBody = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class MessageActivity extends AppCompatActivity {
             //show progressbar and inactive screen interaction.
             btnSend.setEnabled(false);
             txtMessage.setEnabled(false);
+            msgBody = txtMessage.getText().toString();
         }
 
         @Override
@@ -69,8 +73,8 @@ public class MessageActivity extends AppCompatActivity {
                 urlConnection.setRequestMethod("POST");
 
                 JSONObject jsonRequest = new JSONObject();
-                jsonRequest.put("title", "Notification & Offers");
-                jsonRequest.put("message", "some message");
+                jsonRequest.put("title", msgTitle);
+                jsonRequest.put("message", msgBody);
 
                 //Create output stream and write data-request
                 OutputStream os = urlConnection.getOutputStream();
