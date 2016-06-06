@@ -97,7 +97,8 @@ public class MessageActivity extends AppCompatActivity {
                     while ((chunks = buff.readLine()) != null) {
                         dta.append(chunks);
                     }
-                    return dta.toString();
+                    JSONObject respJsonData = new JSONObject(dta.toString());
+                    return respJsonData.getString("statusMessage").toString();
                 } else {
                     return "ERROR";
                 }
@@ -107,7 +108,6 @@ public class MessageActivity extends AppCompatActivity {
 
         }
 
-
         @Override
         protected void onPostExecute(String s) {
 
@@ -115,13 +115,17 @@ public class MessageActivity extends AppCompatActivity {
             btnSend.setEnabled(true);
             txtMessage.setEnabled(true);
 
-            if (s.equals("ERROR"))
+            if (s.toUpperCase().contains("ERROR"))
             {
                 Toast.makeText(getApplicationContext(), "Unable to send message.\nPlease check internet connection.", Toast.LENGTH_LONG).show();
             }
-            else if (s.equals("EXCEPTION"))
+            else if (s.toUpperCase().contains("EXCEPTION"))
             {
-                Toast.makeText(getApplicationContext(), "Please check internet connection.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Server Internal Error. (" + s + ")", Toast.LENGTH_LONG).show();
+            }
+            else if(s.toUpperCase().contains("FAILED"))
+            {
+                Toast.makeText(getApplicationContext(), "Server Internal Error. (" + s + ")", Toast.LENGTH_LONG).show();
             }
             else
             {
