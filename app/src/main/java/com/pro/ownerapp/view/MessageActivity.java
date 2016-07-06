@@ -3,6 +3,7 @@ package com.pro.ownerapp.view;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,7 +75,8 @@ public class MessageActivity extends AppCompatActivity {
 
                 JSONObject jsonRequest = new JSONObject();
                 jsonRequest.put("title", msgTitle);
-                jsonRequest.put("message", msgBody);
+                String byteString = new String(Base64.encode(msgBody.getBytes(), Base64.DEFAULT));
+                jsonRequest.put("message", byteString);
 
                 //Create output stream and write data-request
                 OutputStream os = urlConnection.getOutputStream();
